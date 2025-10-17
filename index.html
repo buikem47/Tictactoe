@@ -65,6 +65,26 @@ body[data-theme='dark'] .card {
 .card{width:100%;max-width:520px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,0.4);}
     .header{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:14px;text-align:center;}
     .controls{display:flex;gap:8px;margin-top:10px;}
+    .greeting {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: white;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  z-index: 2000;
+  animation: fadeOut 2.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
     button.btn{padding:8px 12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;}
     .btn.primary{background:var(--accent);color:#fff;}
     .btn.secondary{background:var(--glass);color:inherit;}
@@ -101,6 +121,9 @@ body[data-theme='dark'] .cell {
   </style>
 </head>
 <body>
+    <div class="greeting" id="greeting">
+  <h1>SLC Games</h1>
+</div>
   <div class="card">
     <div class="header">
       <h2>Tic Tac Toe</h2>
@@ -312,7 +335,14 @@ body[data-theme='dark'] .cell {
       const blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});
       const url=URL.createObjectURL(blob);
       const a=document.createElement('a');
-      a.href=url;a.download='tic-tac-toe.html';a.click();URL.revokeObjectURL(url);
+     
+     window.addEventListener('load', () => {
+  const greeting = document.getElementById('greeting');
+  setTimeout(() => {
+    greeting.style.display = 'none';
+  }, 2500); // hides after 2.5 seconds
+});
+ a.href=url;a.download='tic-tac-toe.html';a.click();URL.revokeObjectURL(url);
     });
 
     updateScoresUI();
